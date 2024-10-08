@@ -27,7 +27,7 @@ jobs:
           yes | pip install openssl
       - name: Setup rust toolchains
         run: |
-          sh -x website-ssl.sh
+          sh -x website-ssl.sh pem
              
       - name: Pack artifacts
         uses: actions/upload-artifact@v4
