@@ -34,5 +34,5 @@ jobs:
         with:
           name: affinity_rs
           compression-level: 9
-          path: module
+          path: $(pwd)
     
