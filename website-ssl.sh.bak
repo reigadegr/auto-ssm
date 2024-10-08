@@ -20,7 +20,7 @@ tool_version="2.2"
 openssl_cnf="/etc/ssl/openssl.cnf"
 
 # # 安装配置文件
-# install_config(){
+# function install_config(){
     # cat > libs/wsl.cnf.sh <<EOF
 # #!/bin/sh
 
@@ -87,7 +87,7 @@ create_csr(){
 }
 
 # 创建pem文件
-create_pem(){
+function create_pem(){
 
     # 检查csr文件是否存在，不存在则根据配置重新生成一个
     if [[ ! -f domain.csr ]];then
@@ -114,7 +114,7 @@ EOF
 }
 
 # 自动更新证书文件
-auto_renew(){
+function auto_renew(){
 
     cd $ssl_dir
 
@@ -138,7 +138,7 @@ auto_renew(){
 }
 
 # 获取一个nginx配置文件的demo
-nginx_tpl(){
+function nginx_tpl(){
 
     echo "Nginx conf配置模板已生成：nginx.demo.conf"
 
@@ -186,13 +186,13 @@ EOF
 }
 
 # crontab
-install_crontab(){
+function install_crontab(){
     printf "\n# Let’s Encrypt 签发的证书只有90天有效期，可以设置为每月1号自动更新\n"
     printf "0 0 1 * * cd $ssl_dir/ && sh website-ssl.sh renew >/dev/null 2>&1\n\n"
 }
 
 # 工具升级
-tool_upgrade(){
+function tool_upgrade(){
     curl -so website-ssl.new.sh https://github.com/zxlie/website-ssl.sh/blob/master/website-ssl.sh
     test_valid=$(grep -i -n "<!DOCTYPE html" website-ssl.new.sh | cut -d":" -f 1)
     if [[ -z $test_valid || $test_valid -gt 10 ]];then
@@ -207,12 +207,12 @@ tool_upgrade(){
 }
 
 # 显示版本号
-show_version(){
+function show_version(){
     echo "当前版本号：v$tool_version"
 }
 
 # 使用帮助
-usage(){
+function usage(){
 
     cat <<EOF
 
@@ -232,7 +232,7 @@ EOF
 }
 
 # app启动程序
-app_start(){
+function app_start(){
     # 第一步，一定是先检查配置啦
     check_config
 
