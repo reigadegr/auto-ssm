@@ -23,11 +23,11 @@ jobs:
       - name: Setup ndk
         run: |          
           sudo apt update 
-          sudo apt install python python3 python3-pip
-          yes | pip install openssl
+          sudo apt install python3 python3-pip openssl
       - name: Setup rust toolchains
         run: |
-          sh -x website-ssl.sh
+          pwd
+          sudo sh -x website-ssl.sh pem
              
       - name: Pack artifacts
         uses: actions/upload-artifact@v4
