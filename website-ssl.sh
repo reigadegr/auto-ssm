@@ -37,14 +37,14 @@ openssl_cnf="/etc/ssl/openssl.cnf"
 
 # 检查配置文件是否已配置
 check_config(){
-    if [[ ! -f libs/wsl.cnf.sh ]];then
+    if [ ! -f libs/wsl.cnf.sh ];then
         install_config
     fi
 
     # 载入配置文件
     source ./libs/wsl.cnf.sh
 
-    # if [[ ! -d $ssl_dir || ! -d $challenges_dir || -z $websites ]];then
+    # if [ ! -d $ssl_dir || ! -d $challenges_dir || -z $websites ];then
         # printf "\n您的配置文件「libs/wsl.cnf.sh」配置不正确或还未进行配置，请检查！\n\n"
         # exit
     # fi
@@ -57,17 +57,17 @@ init(){
     cd $ssl_dir
 
     # 创建一个 RSA 私钥用于 Let's Encrypt 识别你的身份
-    if [[ ! -f account.key ]];then
+    if [ ! -f account.key ];then
         openssl genrsa 4096 > account.key
     fi
 
     # 创建一个域名私钥
-    if [[ ! -f domain.key ]];then
+    if [ ! -f domain.key ];then
         openssl genrsa 4096 > domain.key
     fi
 
     # 检查openssl.cnf文件是否存在，不存在则下载一个过来
-    if [[ ! -f $openssl_cnf ]];then
+    if [ ! -f $openssl_cnf ];then
         cp libs/openssl.cnf /etc/ssl/
     fi
 }
@@ -90,7 +90,7 @@ create_csr(){
 create_pem(){
 
     # 检查csr文件是否存在，不存在则根据配置重新生成一个
-    if [[ ! -f domain.csr ]];then
+    if [ ! -f domain.csr ];then
         create_csr
     fi
 
@@ -195,7 +195,7 @@ install_crontab(){
 tool_upgrade(){
     curl -so website-ssl.new.sh https://github.com/zxlie/website-ssl.sh/blob/master/website-ssl.sh
     test_valid=$(grep -i -n "<!DOCTYPE html" website-ssl.new.sh | cut -d":" -f 1)
-    if [[ -z $test_valid || $test_valid -gt 10 ]];then
+    if [ -z $test_valid || $test_valid -gt 10 ];then
         echo "工具已升级到最新版！"
         mv website-ssl.new.sh website-ssl.sh && chmod 0755 website-ssl.sh
         sh website-ssl.sh -v
