@@ -5,7 +5,7 @@
 # github: https://github.com/zxlie
 # ******************************************
 
-cd /home/runner/work/auto-ssm/auto-ssm
+cd $(dirname "$0")
 
 printf "\n\n`date`> 升级Https证书\n"
 
@@ -104,7 +104,7 @@ create_pem(){
 
 
     # 申请证书crt文件
-    python /home/runner/work/auto-ssm/auto-ssm/libs/acme_tiny.py --account-key account.key --csr domain.csr --acme-dir $challenges_dir > signed.crt
+    python $(dirname "$0")/libs/acme_tiny.py --account-key account.key --csr domain.csr --acme-dir $challenges_dir > signed.crt
     # 下载Let’s Encrypt 的中间证书
     curl -so lets-signed.pem https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem
     # 俩证书合并，得到最终pem文件

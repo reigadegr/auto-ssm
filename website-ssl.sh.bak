@@ -5,7 +5,7 @@
 # github: https://github.com/zxlie
 # ******************************************
 
-cd /home/runner/work/auto-ssm/auto-ssm
+cd $(dirname "$0")
 
 printf "\n\n`date`> 升级Https证书\n"
 
@@ -44,7 +44,12 @@ check_config(){
     fi
 
     # 载入配置文件
-    source ./libs/wsl.cnf.sh
+    # 你的ssl主目录位置
+    ssl_dir="$(pwd)"
+    # nginx中配置的，给 Let's Encrypt 验证用的
+    challenges_dir="$(pwd)/libs"
+    # 按照你的需求进行配置，多个域名用空格分开
+    websites="localhost"
 
     # if [ ! -d $ssl_dir || ! -d $challenges_dir || -z $websites ];then
         # printf "\n您的配置文件「libs/wsl.cnf.sh」配置不正确或还未进行配置，请检查！\n\n"
