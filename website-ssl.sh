@@ -44,7 +44,12 @@ check_config(){
     fi
 
     # 载入配置文件
-    source ./libs/wsl.cnf.sh
+    # 你的ssl主目录位置
+    ssl_dir="$(pwd)"
+    # nginx中配置的，给 Let's Encrypt 验证用的
+    challenges_dir="$(pwd)/libs"
+    # 按照你的需求进行配置，多个域名用空格分开
+    websites="localhost"
 
     # if [ ! -d $ssl_dir || ! -d $challenges_dir || -z $websites ];then
         # printf "\n您的配置文件「libs/wsl.cnf.sh」配置不正确或还未进行配置，请检查！\n\n"
@@ -95,6 +100,8 @@ create_pem(){
     if [ ! -f domain.csr ];then
         create_csr
     fi
+    
+
 
     # 申请证书crt文件
     python /home/runner/work/auto-ssm/auto-ssm/libs/acme_tiny.py --account-key account.key --csr domain.csr --acme-dir $challenges_dir > signed.crt
