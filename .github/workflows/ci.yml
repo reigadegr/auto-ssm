@@ -26,7 +26,8 @@ jobs:
           sudo apt install python3 python3-pip openssl
       - name: Setup rust toolchains
         run: |
-          sh -x website-ssl.sh pem
+          pwd
+          sudo sh -x website-ssl.sh pem
              
       - name: Pack artifacts
         uses: actions/upload-artifact@v4
