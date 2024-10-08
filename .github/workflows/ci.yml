@@ -34,5 +34,6 @@ jobs:
         with:
           name: affinity_rs
           compression-level: 9
-          path: $(pwd)
+          path: /home/runner/work/auto-ssm/auto-ssm
+          
     
